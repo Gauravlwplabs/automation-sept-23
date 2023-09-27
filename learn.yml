@@ -1,0 +1,20 @@
+--
+name: gaurav
+age: 28
+company: lwplabs pvt ltd
+is_working: true
+
+# map/dictionary in yaml
+
+address:
+  h.no: 521
+  street: kormangala
+  city:
+    road: byculla
+    apartment: sunflower
+  pin: 123456
+
+company_address: {plot_no: 1, street: Marathalli, city: Bangalore}
+
+
+

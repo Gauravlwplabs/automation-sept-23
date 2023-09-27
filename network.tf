@@ -64,7 +64,7 @@ resource "aws_internet_gateway" "main" {
 
 resource "aws_nat_gateway" "main" {
   allocation_id = aws_eip.main.id
-  subnet_id     = aws_subnet.public_subnet.id
+  subnet_id     = lookup({ for index, each_subnet in aws_subnet.public_subnet : index => each_subnet.id }, "0")
 
   tags = {
     Name = "${local.vpc_name_local}-ngw"
@@ -80,7 +80,25 @@ resource "aws_eip" "main" {
   depends_on = [aws_internet_gateway.main]
 }
 
-# dependencies in terraform 
+resource "aws_route_table_association" "public_rt_assoc" {
+  for_each       = { for index, each_subnet in aws_subnet.public_subnet : index => each_subnet.id }
+  subnet_id      = each.value
+  route_table_id = aws_route_table.public_rt.id
+}
 
-# implicit dependencies
-# explicit dependencies
+resource "aws_route_table_association" "private_rt_assoc" {
+  for_each       = { for index, each_subnet in aws_subnet.pri_sub : index => each_subnet.id }
+  subnet_id      = each.value
+  route_table_id = aws_route_table.private_rt.id
+}
+
+# example for splat expression
+# resource "aws_instance" "web" {
+#   count         = 2
+#   ami           = "ami-03a6eaae9938c858c"
+#   instance_type = "t3.micro"
+
+#   tags = {
+#     Name = "HelloWorld"
+#   }
+# }
