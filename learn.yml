@@ -1,4 +1,4 @@
---
+---
 name: gaurav
 age: 28
 company: lwplabs pvt ltd
@@ -15,6 +15,27 @@ address:
   pin: 123456
 
 company_address: {plot_no: 1, street: Marathalli, city: Bangalore}
+
+# arrays/list in yaml
+
+skills:
+  - Terraform
+  - K8s
+  - AWS
+  - DevOps
+  - softskills:
+      softskill1: teamplayer
+      softskill2: quick learner
+
+previous_emplyoment: ["abc company", "xyz org"]
+
+feeback: He is a great asset to the company
+
+shell: aws s3 ls
+
+cmd: |
+  aws s3 cp source-file-path destination-file-apth
+  sudo apt install apache
 
 
 
