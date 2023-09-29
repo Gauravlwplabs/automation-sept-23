@@ -12,6 +12,7 @@ terraform {
     region = "us-east-1"
     role_arn = "arn:aws:iam::869510502397:role/admin_role"
     profile = "batch_sept"
+    dynamodb_table = "statelocktable"
   }
 }
 
