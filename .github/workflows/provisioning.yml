@@ -19,6 +19,9 @@ jobs:
   provision:
     # The type of runner that the job will run on
     runs-on: amzon-linux
+    env:
+      AWS_ACCESSS_KEY_ID: ${{ secrets.aws_access_key }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_key }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
