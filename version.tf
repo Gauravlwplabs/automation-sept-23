@@ -17,7 +17,6 @@ terraform {
 
 provider "aws" {
   region  = "us-east-1"
-  profile = "batch_sept"
   assume_role {
     role_arn     = "arn:aws:iam::869510502397:role/admin_role"
     session_name = "batch_sept_provisioning"
