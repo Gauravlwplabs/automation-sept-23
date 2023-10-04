@@ -19,11 +19,19 @@ jobs:
   provision:
     # The type of runner that the job will run on
     runs-on: amzon-linux
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_key }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+       
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
       # setup terraform
       - name: setup terraform
