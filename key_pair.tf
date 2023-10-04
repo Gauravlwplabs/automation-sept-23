@@ -1,0 +1,4 @@
+resource "aws_key_pair" "this" {
+  key_name   = "mypubkey"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCv9Rg/qNkGQw8PR/6DfcBjx1N/7iNOxd6O1jAWTFAmSyDQ23iPD5OHMJaGr1HuIRjcJPdBWfj6HY7bG0GttmoJuA33mrjto+YKngV+kHMzQSJR3ady8yvDhWwQj8zzOQB4XIo7ddzdVyQXWco+HnxXjeiwHbeijJOYO+tvBMLEfMQChP6RxKNwlFx7rNEkQpp2xbWauHuLvfA9AgT+37vQFy+1IfDvKC8BVA0ZdXHLuKGRlVISE+FFZIhkdqD2A0O9hWJ1Xo8krJSeIpeHq/NOMg300CjLcu1OEHg9V/jU0NsFIBbrvozODzhMe92CW8ZBjVoAmP7E6v6R7y6HYonKxCF/u83TQ1Cvk8hhWz27yUjTDNQV/7ZwwxC/ppV3Lukl9VRjbdjwRWCsvMvFpm7LzYdFITcwGVelCowbl6sZ6cmReTol6YsanVYkyEx+IvrLTvciz+plV3Jp/0GRSfLVZLngFxPnICrKNrUE8gMrEsznnGx2Dm0k7lygmZ6HDSM= dell@DESKTOP-9GVTH0R"
+}

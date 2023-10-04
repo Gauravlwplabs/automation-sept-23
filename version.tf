@@ -7,11 +7,10 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "statestoreseptbucket"
-    key    = "statestore-batch-sept.tfstate"
-    region = "us-east-1"
-    role_arn = "arn:aws:iam::869510502397:role/admin_role"
-    profile = "batch_sept"
+    bucket         = "statestoreseptbucket"
+    key            = "statestore-batch-sept.tfstate"
+    region         = "us-east-1"
+    role_arn       = "arn:aws:iam::869510502397:role/admin_role"
     dynamodb_table = "statelocktable"
   }
 }

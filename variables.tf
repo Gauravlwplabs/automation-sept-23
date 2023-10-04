@@ -19,15 +19,33 @@ variable "num_of_subnets" {
   description = "number of subnets to be created"
 }
 
-#4 subnets 2 public subnet 2 private subnet
+variable "jump_server_image_name" {
+  type    = string
+  default = "ami-067d1e60475437da2"
+}
 
-# variable "cidr_public_subnet" {
-#   type        = map(string)
-#   description = "CIDR ranges for  public subnets"
-# }
+variable "jump_server_instance_type" {
+  type    = string
+  default = "t2.micro"
+}
 
-# variable "cidr_private_subnet" {
-#   type        = list(string)
-#   description = "CIDR ranges for private subnets"
-# }
-
+variable "ingress_web" {
+  type = list(object({
+    description = string
+    to_port     = number
+    from_port   = number
+    protocol    = string
+  }))
+  default = [{
+    description = "allow ssh"
+    to_port     = 22
+    from_port   = 22
+    protocol    = "tcp"
+    },
+    {
+      description = "allow web"
+      to_port     = 80
+      from_port   = 80
+      protocol    = "tcp"
+  }]
+}
