@@ -1,6 +1,6 @@
 resource "aws_instance" "web_server" {
-  ami           = var.jump_server_image_name
-  instance_type = var.jump_server_instance_type
+  ami           = data.aws_ami.this.image_id
+  instance_type = var.web_server_instance_type
   key_name      = aws_key_pair.this.key_name
   subnet_id     = element([for each_subnet in aws_subnet.pri_sub : each_subnet.id], 0)
   tags = {

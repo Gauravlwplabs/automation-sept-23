@@ -29,6 +29,11 @@ variable "jump_server_instance_type" {
   default = "t2.micro"
 }
 
+variable "web_server_instance_type" {
+  type    = string
+  default = "t2.micro"
+}
+
 variable "ingress_web" {
   type = list(object({
     description = string
