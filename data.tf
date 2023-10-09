@@ -5,3 +5,23 @@ data "aws_availability_zones" "this" {
     values = ["opt-in-not-required"]
   }
 }
+
+data "aws_ami" "this" {
+  most_recent = true
+  owners      = ["self"]
+
+  filter {
+    name   = "name"
+    values = ["*-lwp-packer"]
+  }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
