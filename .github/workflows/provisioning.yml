@@ -23,7 +23,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_key }}
       TF_VAR_vpc_cidr: "10.0.0.0/16"
-      TF_VAR_vpc_name: "batch_sept"
+      TF_VAR_vpc_name: "batch-sept"
       TF_VAR_num_of_subnets: 4
       
 
