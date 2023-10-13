@@ -11,14 +11,14 @@ terraform {
     key            = "statestore-batch-sept.tfstate"
     region         = "us-east-1"
     role_arn       = "arn:aws:iam::869510502397:role/admin_role"
-    profile        = "batch_sept"
+    # profile        = "batch_sept"
     dynamodb_table = "statelocktable"
   }
 }
 
 provider "aws" {
   region  = var.region
-  profile = "batch_sept"
+  # profile = "batch_sept"
   assume_role {
     role_arn     = "arn:aws:iam::869510502397:role/admin_role"
     session_name = "batch_sept_provisioning"
