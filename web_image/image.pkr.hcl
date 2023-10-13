@@ -1,5 +1,5 @@
 locals {
-  image_name = "${var.server_name}-lwplabs-packer"
+  image_name = "${var.server_name}-lwplab-packer"
 }
 
 source "amazon-ebs" "this" {

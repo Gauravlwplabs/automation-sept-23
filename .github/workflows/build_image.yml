@@ -8,7 +8,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-        - web-image/*
+        - web_image/*
   # pull_request:
   #   branches: [ "main" ]
 
