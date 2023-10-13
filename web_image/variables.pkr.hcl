@@ -1,7 +1,7 @@
 variable server_name {
   description = "name of the golden image"
   type        = string
-  default     = "apache"
+  default     = "apache-web"
 }
 
 variable instance_type {
@@ -10,8 +10,7 @@ variable instance_type {
 }
 
 variable region {
-  type    = string
-  default = "us-east-1"
+  type = string
 }
 
 variable ssh_user_name {
@@ -19,7 +18,7 @@ variable ssh_user_name {
   default = "ec2-user"
 }
 
-variable ami_id{
-    type = string
-    default = "ami-067d1e60475437da2"
+variable ami_id {
+  type    = string
+  default = "ami-067d1e60475437da2"
 }
