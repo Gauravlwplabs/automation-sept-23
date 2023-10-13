@@ -24,3 +24,8 @@ output "nat_gateway_id" {
 output "isDnsSupportenabled" {
   value = aws_vpc.main.enable_dns_support
 }
+
+output "autoscaling_group_name" {
+  description = "The autoscaling group name"
+  value       = module.autoscaling.autoscaling_group_name
+}

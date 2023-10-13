@@ -22,7 +22,7 @@ resource "aws_subnet" "pri_sub" {
   for_each   = { for index, each_az in slice(data.aws_availability_zones.this.names, 0, var.num_of_subnets / 2) : index => each_az }
   vpc_id     = aws_vpc.main.id
   cidr_block = cidrsubnet(var.vpc_cidr, local.newbits, each.key + var.num_of_subnets / 2)
-
+  availability_zone = each.value
   tags = {
     Name = "private_subnet${each.key}-${local.vpc_name_local}"
   }
