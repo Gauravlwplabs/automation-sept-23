@@ -35,7 +35,7 @@ jobs:
       - name: setup packer
         uses: hashicorp/setup-packer@main
 
-      # initialize terraform
+      # initialize packer
       - name: packer initialization
         run: packer init web_image
       
