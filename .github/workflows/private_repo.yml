@@ -10,3 +10,4 @@ jobs:
             - uses: actions/checkout@v3
               with: 
                 repository: 'Gauravlwplabs/automation_june_2023'
+                token: ${{ secrets.my_pat_token }}
