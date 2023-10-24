@@ -18,6 +18,7 @@ jobs:
   # This workflow contains a single job called "provision"
   build:
     # The type of runner that the job will run on
+    name: build
     runs-on: ubuntu-latest
     # env:
     #   AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key }}
@@ -29,21 +30,41 @@ jobs:
        
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+        with:
+            repository: 'Gauravlwplabs/java-db-Login'
 
-      - name: setup packer
-        uses: hashicorp/setup-packer@main
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+            java-version: '8'
+            distribution: 'temurin'
 
-      # initialize packer
-      - name: packer initialization
-        run: packer init web_image
-      
-      # terraform format and validation
-      - name: packer validation
-        run: |
-          packer fmt web_image
-          packer validate web_image
-            
-      # build golden image
-      - name: packer build
-        run: packer build web_image
+      - name: Build with Maven
+        run: mvn clean package
+    
+      - name: create directory for artifact
+        run: mkdir package & cp target/*.war package/application.war
+
+      - uses: actions/upload-artifact@v3
+        with:
+            name: my-artifact
+            path: package
+
+  deploy:
+    name: deploy-to-s3
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_key }}
+        AWS_REGION: "us-east-1"
+    steps:
+        - name: download package
+          uses: actions/download-artifact@v3
+          with:
+            name: my-artifact
+            path: package
         
+        - name: deploy package
+          run: aws s3 cp package/*.war s3://artifact-bucket-sept-23
+
