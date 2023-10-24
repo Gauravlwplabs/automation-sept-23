@@ -1,0 +1,12 @@
+on:
+    workflow_disptach
+
+jobs:
+    checkoutprivaterepo:
+        name: checkoutprivaterepo
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+              with: 
+                repository: 'Gauravlwplabs/java-db-Login'
