@@ -9,4 +9,4 @@ jobs:
         steps:
             - uses: actions/checkout@v3
               with: 
-                repository: 'Gauravlwplabs/java-db-Login'
+                repository: 'Gauravlwplabs/automation_june_2023'
