@@ -22,7 +22,7 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_key }}
-      TF_VAR_db_user_name: ${{ secrets.db_user }}
+      TF_VAR_db_user_name: ${{ secrets.db_user_name }}
       TF_VAR_db_password: ${{ secrets.db_password }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
