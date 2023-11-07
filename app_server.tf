@@ -4,7 +4,7 @@ module "autoscaling" {
   name          = "app-server-asg-${local.vpc_name_local}"
   instance_name = "app-server-${local.vpc_name_local}"
 
-
+  key_name                  = aws_key_pair.this.key_name
   min_size                  = 1
   max_size                  = 2
   desired_capacity          = 1
