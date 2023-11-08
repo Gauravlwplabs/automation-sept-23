@@ -66,5 +66,5 @@ jobs:
             path: package
         
         - name: deploy package
-          run: aws s3 cp package/*.war s3://artifact-bucket-sept-23
+          run: aws s3 cp package/*.war s3://artifactbucketsept23
 
