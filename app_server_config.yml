@@ -1,0 +1,75 @@
+---
+- name: configure tomcat in app server
+  hosts: all
+  gather_facts: true
+  become: true
+  vars:
+     java_version: 1.8*
+     tomcat_version: 9.0.82
+     admin_password: "{{ lookup('ansible.builtin.env', 'ADMIN_PASSWORD') }}"
+     deployer_password: "{{ lookup('ansible.builtin.env', 'DEPLOYER_PASSWORD') }}"
+     tomcat_password: "{{ lookup('ansible.builtin.env', 'TOMCAT_PASSWORD') }}"
+  tasks:
+    - name: install java
+      ansible.builtin.yum:
+          name: java-{{ java_version }}
+          state: present
+    
+    - name: download tomcat
+      ansible.builtin.get_url:
+          url: https://dlcdn.apache.org/tomcat/tomcat-9/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz   
+          dest: /opt/tomcat.zip
+
+    - name: unzip tomcat
+      ansible.builtin.unarchive:
+          src: /opt/tomcat.zip
+          dest: /opt
+          remote_src: true
+    
+    - name: set permission on tomacat directory
+      ansible.builtin.file:
+        path: /opt/apache-tomcat-{{ tomcat_version }}
+        state: directory
+        recurse: yes
+        owner: ec2-user
+        group: ec2-user
+        mode: 0755
+    
+    # - name: comment value tag sections in context.xml file
+    #   ansible.builtin.replace:
+    #       path: /opt/apache-tomcat-{{ tomcat_version }}/webapps/{{ item }}/META-INF/context.xml
+    #       regexp: '127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1'
+    #       replace: '*'
+    #   loop:
+    #     - docs
+    #     - examples
+    #     - host-manager
+    #     - manager
+
+    - name: comment value tag section in context.xml file of docs directory
+      ansible.builtin.template:
+        src: templates/docs_context.xml
+        dest: /opt/apache-tomcat-{{ tomcat_version }}/webapps/docs/META-INF/context.xml
+
+    - name: comment value tag section in context.xml file of docs directory
+      ansible.builtin.template:
+        src: templates/examples_context.xml
+        dest: /opt/apache-tomcat-{{ tomcat_version }}/webapps/examples/META-INF/context.xml
+
+    - name: comment value tag section in context.xml file of docs directory
+      ansible.builtin.template:
+        src: templates/manager_context.xml
+        dest: /opt/apache-tomcat-{{ tomcat_version }}/webapps/manager/META-INF/context.xml
+
+    - name: comment value tag section in context.xml file of docs directory
+      ansible.builtin.template:
+        src: templates/hostmanager_context.xml
+        dest: /opt/apache-tomcat-{{ tomcat_version }}/webapps/host-manager/META-INF/context.xml
+      
+    - name: update tomcat users xml 
+      ansible.builtin.template:
+        src: templates/tomcat-users.xml.j2
+        dest: /opt/apache-tomcat-{{ tomcat_version }}/conf/tomcat-users.xml
+    
+    - name: tomcat start
+      ansible.builtin.shell: nohup /opt/apache-tomcat-{{ tomcat_version }}/bin/startup.sh &

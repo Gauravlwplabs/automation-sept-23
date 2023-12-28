@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service                    # Type of kubernetes resource
+metadata:
+  name: go-redis-app-service     # Unique name of the resource
+spec:
+  type: NodePort                 # Expose the Pods by opening a port on each Node and proxing it to the service.
+  ports:                         # Take incoming HTTP requests on port 9090 and forward them to the targetPort of 8080
+  - name: http
+    port: 9090
+    targetPort: 8080
+  selector:
+    app: go-redis-app            # Map any pod with label `app=go-redis-app` to this service

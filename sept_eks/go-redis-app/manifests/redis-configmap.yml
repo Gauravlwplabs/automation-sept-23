@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-configmap
+data:
+  REDIS_HOST: redis-master
+  REDIS_PORT: "6379"
+  instructor: Gaurav
+  redis.conf: |-
+    maxmemory 720mb
+    maxmemory-policy allkeys-lru

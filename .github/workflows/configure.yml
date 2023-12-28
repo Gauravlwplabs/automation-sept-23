@@ -1,0 +1,33 @@
+name: configure app server
+
+on:
+    workflow_dispatch:
+
+jobs:
+    provision-three-tier:
+        runs-on: amazon-linux
+        env:
+            ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+            DEPLOYER_PASSWORD: ${{ secrets.DEPLOYER_PASSWORD }}
+            TOMCAT_PASSWORD: ${{ secrets.TOMCAT_PASSWORD }}
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            
+            - name: authanticate thorugh SSH
+              run: |
+                mkdir -p ~/.ssh
+                echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+                chmod 600 ~/.ssh/id_rsa
+                eval "$(ssh-agent)"
+                ssh-add ~/.ssh/id_rsa
+
+            - name: configure dynamic inventory
+              run: |
+                ansible-galaxy collection install amazon.aws
+                ansible-inventory -i aws_ec2.yml --list
+
+            - name: configure tomcat
+              run: ansible-playbook app_server_config.yml -i aws_ec2.yml -vvv

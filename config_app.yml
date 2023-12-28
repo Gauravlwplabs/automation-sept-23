@@ -1,0 +1,22 @@
+---
+- name: install and configure app server
+  hosts: all
+  gather_facts: true
+  become: true
+  vars:
+    java_version: 1.8*
+    tomcat_version: 9.0.82
+
+  tasks:
+    - name: install java
+      ansible.builtin.yum:
+        name: java-{{ java_version }}
+        state: present
+    - name: download tomcat
+      ansible.builtin.get_url:
+        url: https://dlcdn.apache.org/tomcat/tomcat-9/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz   
+        dest: /tmp/tomcat.zip
+    - name: Unarchive tomcat
+      ansible.builtin.unarchive:
+        src: /tmp/tomcat.zip
+        dest: /opt/
